@@ -1,19 +1,8 @@
 ---
-
+import BaseLayout from "@layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body class="h-screen">
-    <div id="sketch" class="w-full h-full"></div>
-  </body>
-</html>
+<BaseLayout />
 
 <script>
   import p5 from "p5";
@@ -26,14 +15,12 @@
     let t = 0;
 
     p5.setup = () => {
-      console.log("Setup");
       p5.createCanvas(canvasWidth, canvasHeight);
       p5.stroke(255, 200, 22);
       p5.noFill();
     };
 
     p5.draw = () => {
-      console.log("Draw");
       if (t > 0) {
         p5.translate(p5.width / 2, p5.height / 2);
         const n = p5.noise;

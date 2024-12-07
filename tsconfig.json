@@ -5,6 +5,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@layouts/*": ["src/layouts/*"],
       "@scripts/*": ["src/scripts/*"]
     }
   }
