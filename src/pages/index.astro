@@ -1,13 +1,13 @@
 ---
-import BaseLayout from "@layouts/BaseLayout.astro";
+import BaseLayout from "@layouts/BaseLayout.astro"
 ---
 
 <BaseLayout />
 
 <script>
-  import p5 from "p5";
-  import { sketch } from "@scripts/ciatta/sketch1";
-  import { sketchElement } from "@utils/globals";
+    import p5 from "p5"
+    import { sketch } from "@scripts/ciatta/sketch1"
+    import { sketchElement } from "@utils/globals"
 
-  new p5(sketch, sketchElement);
+    new p5(sketch, sketchElement)
 </script>
