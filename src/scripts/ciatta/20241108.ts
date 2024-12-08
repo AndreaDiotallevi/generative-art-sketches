@@ -3,18 +3,18 @@ import { canvasWidth, canvasHeight } from "@utils/globals"
 
 export const sketch = (p5: p5) => {
     let t = 0
-    const radius = canvasWidth / 25
-    const circleSize = radius / 5
+    const radius = canvasWidth / 20
+    const circleSize = radius / 4
 
     const getRandomColour = () => {
         const colours = [
-            p5.color(5, 100, 100),
-            p5.color(66, 100, 100),
-            p5.color(100, 100, 100),
-            p5.color(16, 100, 100),
+            p5.color(8, 100, 100), // Orange
+            p5.color(15, 100, 100), // Yellow
+            p5.color(65, 100, 100), // Blue
+            p5.color(100, 100, 100), // Red
         ]
 
-        const randomNum = Math.ceil(p5.random(0, colours.length - 1))
+        const randomNum = Math.floor(p5.random(0, colours.length))
 
         return colours[randomNum]
     }
@@ -25,6 +25,7 @@ export const sketch = (p5: p5) => {
         p5.noStroke()
         p5.fill(0, 0, 30)
         p5.noLoop()
+        // p5.background(getRandomColour())
     }
 
     p5.draw = () => {
@@ -33,7 +34,7 @@ export const sketch = (p5: p5) => {
                 p5.fill(getRandomColour())
                 p5.stroke(getRandomColour())
                 p5.strokeWeight(Math.ceil(p5.random(0, 3)))
-                drawOctagons({ x, y, r: radius })
+                drawOctagons({ x, y, r: radius * 2 })
             }
         }
     }
