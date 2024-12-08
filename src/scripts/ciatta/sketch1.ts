@@ -3,23 +3,51 @@ import { canvasWidth, canvasHeight } from "@utils/globals"
 
 export const sketch = (p5: p5) => {
     let t = 0
+    let circles: { x: number; y: number; r: number }[] = []
 
     p5.setup = () => {
         p5.createCanvas(canvasWidth, canvasHeight)
-        p5.stroke(255, 200, 22)
-        p5.noFill()
+        p5.colorMode("hsb", 100)
+        p5.noStroke()
+        p5.fill(0, 0, 30)
+        p5.background(0, 0, 70)
+        p5.noLoop()
     }
 
     p5.draw = () => {
-        // if (t > 0) {
-        //   p5.translate(p5.width / 2, p5.height / 2);
-        //   const n = p5.noise;
-        //   const a = 0.5 * p5.min(p5.width, p5.height);
-        //   let b = n(t) * 6;
-        //   let c = n(t + 60) * 6;
-        //   p5.line(p5.cos(b) * a, p5.sin(b) * a, p5.cos(c) * a, p5.sin(c) * a);
-        // }
-        // t++;
+        for (let i = 0; i < 40; i++) {
+            let newCircle = {
+                x: p5.random(canvasWidth),
+                y: p5.random(canvasHeight),
+                r: p5.min(p5.random(canvasWidth) / 8, 200),
+            }
+
+            let attempts = 0
+            while (intersects(newCircle) && attempts < 100) {
+                newCircle.x = p5.random(canvasWidth)
+                newCircle.y = p5.random(canvasHeight)
+                attempts++
+            }
+
+            if (!intersects(newCircle)) {
+                circles.push(newCircle)
+                p5.circle(newCircle.x, newCircle.y, newCircle.r * 2)
+            }
+        }
+    }
+
+    function intersects(newCircle: {
+        x: number
+        y: number
+        r: number
+    }): boolean {
+        for (let circle of circles) {
+            let d = p5.dist(newCircle.x, newCircle.y, circle.x, circle.y)
+            if (d < newCircle.r + circle.r) {
+                return true
+            }
+        }
+        return false
     }
 
     p5.mouseClicked = () => {
