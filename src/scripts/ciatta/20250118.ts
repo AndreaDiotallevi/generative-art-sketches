@@ -44,14 +44,14 @@ export const sketch = (p5: p5) => {
             p5.noiseSeed(noiseSeed)
             drawSketch()
             console.log(randomSeed, noiseSeed)
-            p5.save(
-                canvasWidth +
-                    "-galassia-rSeed=" +
-                    randomSeed +
-                    "-nSeed=" +
-                    noiseSeed +
-                    ".png"
-            )
+            // p5.save(
+            //     canvasWidth +
+            //         "-galassia-rSeed=" +
+            //         randomSeed +
+            //         "-nSeed=" +
+            //         noiseSeed +
+            //         ".png"
+            // )
         }
     }
 
