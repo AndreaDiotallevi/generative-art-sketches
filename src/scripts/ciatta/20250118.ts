@@ -33,7 +33,7 @@ export const sketch = (p5: p5) => {
                 p5.circle(
                     x,
                     y,
-                    ((p5.randomGaussian() * canvasWidth) / 20) * ratio
+                    ((p5.randomGaussian() * canvasWidth) / 15) * ratio
                 )
             }
         }
@@ -41,8 +41,8 @@ export const sketch = (p5: p5) => {
     }
 
     p5.draw = () => {
-        // randomSeed = Math.ceil(p5.random(10000))
-        randomSeed = 19
+        randomSeed = Math.ceil(p5.random(10000))
+        // randomSeed = 7302
         noiseSeed = randomSeed * 1000
         p5.randomSeed(randomSeed)
         p5.noiseSeed(noiseSeed)
