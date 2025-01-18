@@ -30,15 +30,19 @@ export const sketch = (p5: p5) => {
             for (let j = 0; j < 2 * p5.PI; j += p5.PI / (p5.noise(i) * 36)) {
                 const x = p5.cos(j) * p5.noise(i) * i * ratio
                 const y = p5.sin(j) * p5.noise(j) * i * ratio
-                p5.circle(x, y, p5.randomGaussian() * 40 * ratio)
+                p5.circle(
+                    x,
+                    y,
+                    ((p5.randomGaussian() * canvasWidth) / 20) * ratio
+                )
             }
         }
         p5.pop()
     }
 
     p5.draw = () => {
-        randomSeed = Math.ceil(p5.random(10000))
-        // randomSeed = 19
+        // randomSeed = Math.ceil(p5.random(10000))
+        randomSeed = 19
         noiseSeed = randomSeed * 1000
         p5.randomSeed(randomSeed)
         p5.noiseSeed(noiseSeed)
