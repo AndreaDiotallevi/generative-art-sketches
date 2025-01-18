@@ -2,9 +2,9 @@ import p5 from "p5"
 import { canvasWidth, canvasHeight } from "@utils/globals"
 
 export const sketch = (p5: p5) => {
-    const radius = canvasWidth / 20
-    const minRadius = radius / 7
-    const circleSize = radius / 4
+    const radius = canvasWidth / 40
+    const minRadius = radius / 10
+    const circleSize = radius / 5
 
     const getRandomColour = () => {
         const colours = [
@@ -29,29 +29,29 @@ export const sketch = (p5: p5) => {
     }
 
     p5.draw = () => {
-        for (let x = 0; x < canvasWidth + radius * 2; x += radius * 2.75) {
-            for (let y = 0; y < canvasHeight + radius * 2; y += radius * 2.75) {
+        for (let x = 0; x < canvasWidth + radius * 2; x += radius * 2.6) {
+            for (let y = 0; y < canvasHeight + radius * 2; y += radius * 2.6) {
                 p5.fill(getRandomColour())
-                p5.stroke(getRandomColour())
-                p5.strokeWeight(Math.ceil(p5.random(0, 3)))
-                drawShapes({ x, y, r: radius * 2, divisions: 8 })
+                // p5.stroke(getRandomColour())
+                // p5.strokeWeight(Math.ceil(p5.random(0, 3)))
+                drawShapes({ x, y, r: radius, divisions: 8 })
             }
         }
 
         for (
-            let x = (radius * 2.75) / 2;
+            let x = (radius * 2.6) / 2;
             x < canvasWidth + radius * 2;
-            x += radius * 2.75
+            x += radius * 2.6
         ) {
             for (
-                let y = (radius * 2.75) / 2;
+                let y = (radius * 2.6) / 2;
                 y < canvasHeight + radius * 2;
-                y += radius * 2.75
+                y += radius * 2.6
             ) {
                 p5.fill(getRandomColour())
-                p5.stroke(getRandomColour())
-                p5.strokeWeight(Math.ceil(p5.random(0, 3)))
-                drawShapes({ x, y, r: radius / 2, divisions: 4 })
+                // p5.stroke(getRandomColour())
+                // p5.strokeWeight(Math.ceil(p5.random(0, 3)))
+                drawShapes({ x, y, r: radius / 4, divisions: 4 })
             }
         }
     }
@@ -72,8 +72,8 @@ export const sketch = (p5: p5) => {
 
         // Draw the current octagon
         if (p5.random() < 0.2) p5.fill(getRandomColour())
-        if (p5.random() < 0.5) p5.stroke(getRandomColour())
-        if (p5.random() < 0.2) p5.strokeWeight(Math.ceil(p5.random(0, 3)))
+        // if (p5.random() < 0.5) p5.stroke(getRandomColour())
+        // if (p5.random() < 0.2) p5.strokeWeight(Math.ceil(p5.random(0, 3)))
 
         for (let angle = 0; angle < p5.TWO_PI; angle += p5.TWO_PI / divisions) {
             const childX = p5.cos(angle) * r + x
