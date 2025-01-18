@@ -17,11 +17,11 @@ export const sketch = (p5: p5) => {
         p5.push()
         p5.background(
             p5.random() * 360,
-            p5.randomGaussian(0.8) * 100,
-            p5.randomGaussian(0.8) * 100,
+            p5.randomGaussian(0.5) * 100,
+            p5.randomGaussian(1) * 100,
             1
         )
-        p5.background(0, 50, 100, 1)
+        // p5.background(0, 50, 100, 1)
         p5.translate(canvasWidth / 2, canvasHeight / 2)
 
         for (let i = 1; i < 3000; i += i / 2 + 1) {
