@@ -2,10 +2,10 @@ import p5 from "p5"
 import { canvasWidth, canvasHeight } from "@utils/globals"
 
 export const sketch = (p5: p5) => {
-    const ratio = 1
+    const ratio = 2
     let randomSeed: number
     let noiseSeed: number
-    const scale = 15
+    const scale = 10
 
     p5.setup = () => {
         p5.createCanvas(canvasWidth, canvasHeight)
@@ -34,7 +34,7 @@ export const sketch = (p5: p5) => {
                 p5.circle(
                     x,
                     y,
-                    ((p5.randomGaussian() * canvasWidth) / scale) * ratio
+                    ((p5.randomGaussian(0) * canvasWidth) / scale) * ratio
                 )
             }
         }
@@ -54,39 +54,15 @@ export const sketch = (p5: p5) => {
     }
 
     p5.draw = () => {
-        // randomSeed = Math.ceil(p5.random(10000))
         randomSeed = 7302
         noiseSeed = randomSeed * 1000
         p5.randomSeed(randomSeed)
         p5.noiseSeed(noiseSeed)
         drawSketch()
         paper()
-        // p5.text("Random seed = " + randomSeed, 20, 20)
-        // p5.text("Noise seed = " + noiseSeed, 20, 40)
-        console.log(randomSeed, noiseSeed)
     }
 
-    // p5.draw = () => {
-    //     for (let i = 0; i < 20; i++) {
-    //         randomSeed = i
-    //         noiseSeed = i * 1000
-    //         p5.randomSeed(randomSeed)
-    //         p5.noiseSeed(noiseSeed)
-    //         drawSketch()
-    //         console.log(randomSeed, noiseSeed)
-    //         // p5.save(
-    //         //     canvasWidth +
-    //         //         "-galassia-rSeed=" +
-    //         //         randomSeed +
-    //         //         "-nSeed=" +
-    //         //         noiseSeed +
-    //         //         ".png"
-    //         // )
-    //     }
-    // }
-
     p5.mouseClicked = () => {
-        // p5.remove()
         p5.save(
             canvasWidth +
                 "-galassia-rSeed=" +
@@ -95,6 +71,8 @@ export const sketch = (p5: p5) => {
                 noiseSeed +
                 "-scale=" +
                 scale +
+                "-ratio=" +
+                ratio +
                 ".png"
         )
     }
