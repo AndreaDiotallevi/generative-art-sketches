@@ -5,7 +5,7 @@ export const sketch = (p5: p5) => {
     const ratio = 2
     let randomSeed: number
     let noiseSeed: number
-    const scale = 10
+    const scale = 20
 
     p5.setup = () => {
         p5.createCanvas(canvasWidth, canvasHeight)
@@ -25,7 +25,7 @@ export const sketch = (p5: p5) => {
 
         p5.translate(canvasWidth / 2, canvasHeight / 2)
 
-        for (let i = 1; i < 3000; i += i / 2 + 1) {
+        for (let i = 1; i < 1000; i += i / 2 + 1) {
             p5.fill(p5.random() * 360, 100, 100, p5.randomGaussian(0.4, 0.3))
 
             for (let j = 0; j < 2 * p5.PI; j += p5.PI / (p5.noise(i) * 36)) {
