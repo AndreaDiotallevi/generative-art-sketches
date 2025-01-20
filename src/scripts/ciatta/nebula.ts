@@ -9,6 +9,8 @@ export const sketch = (p5: p5) => {
     const randomSeed = 7302
     const noiseSeed = randomSeed * 1000
     const shapes: Shapes = []
+    let scale = 10
+    let ratio = 2
 
     p5.setup = () => {
         p5.createCanvas(canvasWidth, canvasHeight)
@@ -30,7 +32,8 @@ export const sketch = (p5: p5) => {
                 p5.random() * 360,
                 100,
                 100,
-                p5.randomGaussian(0.4, 0.3)
+                p5.randomGaussian(0.5, 0)
+                // p5.randomGaussian(0.4, 0.3)
             )
 
             let count = 0
@@ -54,6 +57,9 @@ export const sketch = (p5: p5) => {
         scale: number
         backgroundIndex: number
     }) => {
+        scale = scale
+        ratio = ratio
+
         p5.background(
             p5.random() * 360,
             p5.randomGaussian(0.75) * 100,
@@ -62,6 +68,7 @@ export const sketch = (p5: p5) => {
         )
 
         createCircles({ ratio, scale })
+        console.log(shapes[13].color)
 
         p5.translate(canvasWidth / 2, canvasHeight / 2)
         p5.background(shapes[backgroundIndex].color)
@@ -76,41 +83,41 @@ export const sketch = (p5: p5) => {
         }
     }
 
-    const paper = () => {
-        const step = canvasWidth / 400
-        for (let x = 0; x < canvasWidth; x += step) {
-            for (let y = 0; y < canvasHeight; y += step) {
-                p5.push()
-                p5.fill(p5.random(255), 100, 100, 0.015)
-                p5.rect(x, y, step, step)
-                p5.pop()
-            }
-        }
-    }
+    // const paper = () => {
+    //     const step = canvasWidth / 400
+    //     for (let x = 0; x < canvasWidth; x += step) {
+    //         for (let y = 0; y < canvasHeight; y += step) {
+    //             p5.push()
+    //             p5.fill(p5.random(255), 100, 100, 0.015)
+    //             p5.rect(x, y, step, step)
+    //             p5.pop()
+    //         }
+    //     }
+    // }
 
     p5.draw = () => {
         p5.randomSeed(randomSeed)
         p5.noiseSeed(noiseSeed)
         // drawSketch({ ratio: 2, scale: 10, backgroundIndex: 9 }) // big
-        drawSketch({ ratio: 2, scale: 20, backgroundIndex: 14 }) // medium
-        // drawSketch({ ratio: 2, scale: 40, backgroundIndex: 13 }) // small
-        paper()
+        // drawSketch({ ratio: 2, scale: 20, backgroundIndex: 14 }) // medium
+        drawSketch({ ratio: 2, scale: 40, backgroundIndex: 13 }) // small
+        // paper()
     }
 
-    // p5.mouseClicked = () => {
-    //     p5.save(
-    //         canvasWidth +
-    //             "-nebula-rSeed=" +
-    //             randomSeed +
-    //             "-nSeed=" +
-    //             noiseSeed +
-    //             "-scale=" +
-    //             scale +
-    //             "-ratio=" +
-    //             ratio +
-    //             ".png"
-    //     )
-    // }
+    p5.mouseClicked = () => {
+        p5.save(
+            canvasWidth +
+                "-nebula-rSeed=" +
+                randomSeed +
+                "-nSeed=" +
+                noiseSeed +
+                "-scale=" +
+                scale +
+                "-ratio=" +
+                ratio +
+                ".png"
+        )
+    }
 
     p5.windowResized = () => {
         const newElement = document.querySelector("#sketch") as HTMLElement
