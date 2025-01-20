@@ -3,20 +3,12 @@ import { canvasWidth, canvasHeight } from "@utils/globals"
 
 type Circle = { x: number; y: number; d: number }
 type Shapes = { color: p5.Color; count: number; circles: Circle[] }[]
-type Elements = { shapes: Shapes; background: p5.Color }
-
-// big - backgroun 9
-// medium - normal
-// small -
 
 export const sketch = (p5: p5) => {
-    const ratio = 2
-    let randomSeed: number
-    let noiseSeed: number
-    const scale = 10
     const num = 1000
+    const randomSeed = 7302
+    const noiseSeed = randomSeed * 1000
     const shapes: Shapes = []
-    let elements: Elements
 
     p5.setup = () => {
         p5.createCanvas(canvasWidth, canvasHeight)
@@ -25,7 +17,13 @@ export const sketch = (p5: p5) => {
         p5.noLoop()
     }
 
-    const createCircles = () => {
+    const createCircles = ({
+        ratio,
+        scale,
+    }: {
+        ratio: number
+        scale: number
+    }) => {
         for (let i = 1; i < num; i += i / 2 + 1) {
             const circles = []
             const color = p5.color(
@@ -47,32 +45,30 @@ export const sketch = (p5: p5) => {
         }
     }
 
-    const drawSketch = () => {
-        const backgroundColor = p5.color(
+    const drawSketch = ({
+        ratio,
+        scale,
+        backgroundIndex,
+    }: {
+        ratio: number
+        scale: number
+        backgroundIndex: number
+    }) => {
+        p5.background(
             p5.random() * 360,
             p5.randomGaussian(0.75) * 100,
             p5.randomGaussian(1) * 100,
             1
         )
-        p5.background(backgroundColor)
 
-        createCircles()
-        console.log(shapes)
-        elements = { shapes, background: backgroundColor }
+        createCircles({ ratio, scale })
+
         p5.translate(canvasWidth / 2, canvasHeight / 2)
-        // const newRandom = Math.floor(p5.random(1000))
-        const newRandom = 26
-        console.log(newRandom)
-        p5.randomSeed(newRandom)
-        p5.background(shapes[9].color) // big
-        // p5.background(shapes[14].color) // medium
-        // p5.background(shapes[13].color) // small
+        p5.background(shapes[backgroundIndex].color)
 
         for (let i = 0; i < shapes.length; i++) {
             const group = shapes[i]
-            // const nextGroup = shapes[(i + 14) % shapes.length]
             p5.fill(group.color)
-            // p5.fill(shapes[Math.floor(p5.random() * shapes.length)].color)
             for (let j = 0; j < group.circles.length; j++) {
                 const circle = group.circles[j]
                 p5.circle(circle.x, circle.y, circle.d)
@@ -93,18 +89,18 @@ export const sketch = (p5: p5) => {
     }
 
     p5.draw = () => {
-        randomSeed = 7302
-        noiseSeed = randomSeed * 1000
         p5.randomSeed(randomSeed)
         p5.noiseSeed(noiseSeed)
-        drawSketch()
+        // drawSketch({ ratio: 2, scale: 10, backgroundIndex: 9 }) // big
+        drawSketch({ ratio: 2, scale: 20, backgroundIndex: 14 }) // medium
+        // drawSketch({ ratio: 2, scale: 40, backgroundIndex: 13 }) // small
         paper()
     }
 
     // p5.mouseClicked = () => {
     //     p5.save(
     //         canvasWidth +
-    //             "-galassia-rSeed=" +
+    //             "-nebula-rSeed=" +
     //             randomSeed +
     //             "-nSeed=" +
     //             noiseSeed +
