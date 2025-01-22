@@ -46,6 +46,7 @@ export const sketch = (p5: p5) => {
             }
             shapes.push({ circles, color, count })
         }
+        shapes[13].color = p5.color(52, 100, 100, 0.5)
     }
 
     const drawSketch = ({
@@ -68,7 +69,6 @@ export const sketch = (p5: p5) => {
         )
 
         createCircles({ ratio, scale })
-        console.log(shapes[13].color)
 
         p5.translate(canvasWidth / 2, canvasHeight / 2)
         p5.background(shapes[backgroundIndex].color)
@@ -79,6 +79,7 @@ export const sketch = (p5: p5) => {
             for (let j = 0; j < group.circles.length; j++) {
                 const circle = group.circles[j]
                 p5.circle(circle.x, circle.y, circle.d)
+                // p5.circle(circle.x, circle.y, circle.d / 20)
             }
         }
     }
@@ -98,9 +99,9 @@ export const sketch = (p5: p5) => {
     p5.draw = () => {
         p5.randomSeed(randomSeed)
         p5.noiseSeed(noiseSeed)
-        // drawSketch({ ratio: 2, scale: 10, backgroundIndex: 9 }) // big
+        drawSketch({ ratio: 2, scale: 10, backgroundIndex: 9 }) // big
         // drawSketch({ ratio: 2, scale: 20, backgroundIndex: 14 }) // medium
-        drawSketch({ ratio: 2, scale: 40, backgroundIndex: 13 }) // small
+        // drawSketch({ ratio: 2, scale: 40, backgroundIndex: 13 }) // small
         // paper()
     }
 
