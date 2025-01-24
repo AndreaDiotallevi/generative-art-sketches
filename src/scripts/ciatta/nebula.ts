@@ -5,11 +5,11 @@ type Circle = { x: number; y: number; d: number }
 type Shapes = { color: p5.Color; count: number; circles: Circle[] }[]
 
 export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
+    const { scale, hue } = options
     const num = 1000
     const randomSeed = 7302
     const noiseSeed = randomSeed * 1000
     const shapes: Shapes = []
-    const { scale, hue } = options
     const ratio = 2
 
     p5.setup = () => {
