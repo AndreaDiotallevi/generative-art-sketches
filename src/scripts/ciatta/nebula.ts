@@ -32,8 +32,10 @@ export const sketch = (p5: p5) => {
                 p5.random() * 360,
                 100,
                 100,
-                p5.randomGaussian(0.5, 0)
+                // p5.randomGaussian(0.5, 0)
+                // p5.randomGaussian(0.55, 0.05)
                 // p5.randomGaussian(0.4, 0.3)
+                p5.randomGaussian(0.5, 0.3)
             )
 
             let count = 0
@@ -46,7 +48,7 @@ export const sketch = (p5: p5) => {
             }
             shapes.push({ circles, color, count })
         }
-        shapes[13].color = p5.color(52, 100, 100, 0.5)
+        shapes[13].color = p5.color(35, 100, 100, 0.5)
     }
 
     const drawSketch = ({
@@ -61,17 +63,22 @@ export const sketch = (p5: p5) => {
         scale = scale
         ratio = ratio
 
-        p5.background(
+        let backgroundColor = p5.color(
             p5.random() * 360,
-            p5.randomGaussian(0.75) * 100,
+            p5.randomGaussian(1) * 100,
             p5.randomGaussian(1) * 100,
             1
         )
 
+        p5.background(backgroundColor)
+
         createCircles({ ratio, scale })
 
         p5.translate(canvasWidth / 2, canvasHeight / 2)
-        p5.background(shapes[backgroundIndex].color)
+        backgroundColor = shapes[backgroundIndex].color
+        // backgroundColor = p5.color(27.5, 100, 100, 1)
+        backgroundColor.setAlpha(1)
+        p5.background(backgroundColor)
 
         for (let i = 0; i < shapes.length; i++) {
             const group = shapes[i]
@@ -79,7 +86,6 @@ export const sketch = (p5: p5) => {
             for (let j = 0; j < group.circles.length; j++) {
                 const circle = group.circles[j]
                 p5.circle(circle.x, circle.y, circle.d)
-                // p5.circle(circle.x, circle.y, circle.d / 20)
             }
         }
     }
@@ -99,9 +105,10 @@ export const sketch = (p5: p5) => {
     p5.draw = () => {
         p5.randomSeed(randomSeed)
         p5.noiseSeed(noiseSeed)
-        drawSketch({ ratio: 2, scale: 10, backgroundIndex: 9 }) // big
-        // drawSketch({ ratio: 2, scale: 20, backgroundIndex: 14 }) // medium
-        // drawSketch({ ratio: 2, scale: 40, backgroundIndex: 13 }) // small
+        // drawSketch({ ratio: 1.5, scale: 8, backgroundIndex: 9 }) // big 9
+        // drawSketch({ ratio: 2, scale: 10, backgroundIndex: 9 }) // big 9 hue=15
+        drawSketch({ ratio: 2, scale: 20, backgroundIndex: 6 }) // medium 6 hue=27.5
+        // drawSketch({ ratio: 2, scale: 40, backgroundIndex: 13 }) // small 13 hue=40
         // paper()
     }
 

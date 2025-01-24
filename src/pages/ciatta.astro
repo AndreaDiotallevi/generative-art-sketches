@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro"
+const scale = Astro.url.searchParams.get("scale") || ""
+const backgroundIndex = Astro.url.searchParams.get("background_index") || ""
 ---
 
 <BaseLayout />
