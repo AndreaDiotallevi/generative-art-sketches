@@ -1,7 +1,5 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro"
-const scale = Astro.url.searchParams.get("scale") || ""
-const backgroundIndex = Astro.url.searchParams.get("background_index") || ""
 ---
 
 <BaseLayout />
@@ -11,5 +9,16 @@ const backgroundIndex = Astro.url.searchParams.get("background_index") || ""
     import { sketch } from "@scripts/ciatta/nebula"
     import { sketchElement } from "@utils/globals"
 
-    new p5(sketch, sketchElement)
+    const params = new URLSearchParams(window.location.search)
+    const scale = params.get("scale") || "10"
+    const hue = params.get("hue") || "15"
+
+    new p5(
+        p =>
+            sketch(p, {
+                scale: Number.parseFloat(scale),
+                hue: Number.parseFloat(hue),
+            }),
+        sketchElement
+    )
 </script>

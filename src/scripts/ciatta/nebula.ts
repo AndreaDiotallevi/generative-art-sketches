@@ -4,13 +4,13 @@ import { canvasWidth, canvasHeight } from "@utils/globals"
 type Circle = { x: number; y: number; d: number }
 type Shapes = { color: p5.Color; count: number; circles: Circle[] }[]
 
-export const sketch = (p5: p5) => {
+export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
     const num = 1000
     const randomSeed = 7302
     const noiseSeed = randomSeed * 1000
     const shapes: Shapes = []
-    let scale = 10
-    let ratio = 2
+    const { scale, hue } = options
+    const ratio = 2
 
     p5.setup = () => {
         p5.createCanvas(canvasWidth, canvasHeight)
@@ -19,13 +19,7 @@ export const sketch = (p5: p5) => {
         p5.noLoop()
     }
 
-    const createCircles = ({
-        ratio,
-        scale,
-    }: {
-        ratio: number
-        scale: number
-    }) => {
+    const createCircles = ({ ratio }: { ratio: number }) => {
         for (let i = 1; i < num; i += i / 2 + 1) {
             const circles = []
             const color = p5.color(
@@ -34,8 +28,8 @@ export const sketch = (p5: p5) => {
                 100,
                 // p5.randomGaussian(0.5, 0)
                 // p5.randomGaussian(0.55, 0.05)
-                // p5.randomGaussian(0.4, 0.3)
-                p5.randomGaussian(0.5, 0.3)
+                p5.randomGaussian(0.4, 0.3)
+                // p5.randomGaussian(0.5, 0.3)
             )
 
             let count = 0
@@ -51,18 +45,7 @@ export const sketch = (p5: p5) => {
         shapes[13].color = p5.color(35, 100, 100, 0.5)
     }
 
-    const drawSketch = ({
-        ratio,
-        scale,
-        backgroundIndex,
-    }: {
-        ratio: number
-        scale: number
-        backgroundIndex: number
-    }) => {
-        scale = scale
-        ratio = ratio
-
+    const drawSketch = () => {
         let backgroundColor = p5.color(
             p5.random() * 360,
             p5.randomGaussian(1) * 100,
@@ -72,12 +55,10 @@ export const sketch = (p5: p5) => {
 
         p5.background(backgroundColor)
 
-        createCircles({ ratio, scale })
+        createCircles({ ratio })
 
         p5.translate(canvasWidth / 2, canvasHeight / 2)
-        backgroundColor = shapes[backgroundIndex].color
-        // backgroundColor = p5.color(27.5, 100, 100, 1)
-        backgroundColor.setAlpha(1)
+        backgroundColor = p5.color(hue, 100, 100, 1)
         p5.background(backgroundColor)
 
         for (let i = 0; i < shapes.length; i++) {
@@ -105,10 +86,10 @@ export const sketch = (p5: p5) => {
     p5.draw = () => {
         p5.randomSeed(randomSeed)
         p5.noiseSeed(noiseSeed)
-        // drawSketch({ ratio: 1.5, scale: 8, backgroundIndex: 9 }) // big 9
-        // drawSketch({ ratio: 2, scale: 10, backgroundIndex: 9 }) // big 9 hue=15
-        drawSketch({ ratio: 2, scale: 20, backgroundIndex: 6 }) // medium 6 hue=27.5
-        // drawSketch({ ratio: 2, scale: 40, backgroundIndex: 13 }) // small 13 hue=40
+        // drawSketch({ ratio: 1.5 }) // big 9
+        // drawSketch({ ratio: 2 }) // big 9 hue=15
+        drawSketch() // medium 6 hue=27.5
+        // drawSketch({ ratio: 2}) // small 13 hue=40
         // paper()
     }
 
@@ -133,3 +114,7 @@ export const sketch = (p5: p5) => {
         p5.draw()
     }
 }
+
+// http://localhost:4321/ciatta?scale=30&hue=35
+// http://localhost:4321/ciatta?scale=20&hue=25
+// http://localhost:4321/ciatta?scale=10&hue=330
