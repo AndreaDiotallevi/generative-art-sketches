@@ -1,19 +1,22 @@
 import p5 from "p5"
-// import { canvasWidth, canvasHeight } from "@utils/globals"
+import { canvasWidth } from "@utils/globals"
 
 type Circle = { x: number; y: number; d: number }
 type Shape = { color: p5.Color; count: number; circles: Circle[] }
 
-export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
+export const sketch = (
+    p5: p5,
+    options: { scale: number; hue: number; width?: number }
+) => {
     const { scale, hue } = options
     const ratio1 = 2
-    const ratio2 = 1 / 500
+    const ratio2 = 1 / 675
     const num = 1000
     const randomSeed = 7302
     const noiseSeed = randomSeed * 1000
 
     const aspectRatio = 1.4
-    const width = 2000
+    const width = options.width || canvasWidth
     const height = width * aspectRatio
 
     p5.setup = () => {
@@ -34,7 +37,7 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
                 100,
                 // p5.randomGaussian(0.5, 0)
                 // p5.randomGaussian(0.55, 0.05)
-                p5.randomGaussian(0.4, 0.3)
+                p5.randomGaussian(0.4, 0.25)
                 // p5.randomGaussian(0.5, 0.3)
             )
 
@@ -48,8 +51,6 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
             }
             shapes.push({ circles, color, count })
         }
-
-        shapes[13].color = p5.color(35, 100, 100, 0.5)
 
         return shapes
     }
@@ -125,5 +126,9 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
 }
 
 // http://localhost:4321/ciatta?scale=30&hue=35
+// http://localhost:4321/ciatta?scale=20&hue=25
+// http://localhost:4321/ciatta?scale=10&hue=330
+
+// http://localhost:4321/ciatta?scale=40&hue=35
 // http://localhost:4321/ciatta?scale=20&hue=25
 // http://localhost:4321/ciatta?scale=10&hue=330

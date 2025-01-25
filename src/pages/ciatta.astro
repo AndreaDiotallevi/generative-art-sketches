@@ -12,12 +12,14 @@ import BaseLayout from "@layouts/BaseLayout.astro"
     const params = new URLSearchParams(window.location.search)
     const scale = params.get("scale") || "10"
     const hue = params.get("hue") || "330"
+    const width = params.get("width")
 
     new p5(
         p =>
             sketch(p, {
                 scale: Number.parseFloat(scale),
                 hue: Number.parseFloat(hue),
+                width: width ? Number.parseFloat(width) : undefined,
             }),
         sketchElement
     )
