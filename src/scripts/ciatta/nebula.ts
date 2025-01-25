@@ -2,7 +2,7 @@ import p5 from "p5"
 import { canvasWidth, canvasHeight } from "@utils/globals"
 
 type Circle = { x: number; y: number; d: number }
-type Shapes = { color: p5.Color; count: number; circles: Circle[] }[]
+type Shape = { color: p5.Color; count: number; circles: Circle[] }
 
 export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
     const { scale, hue } = options
@@ -19,7 +19,7 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
     }
 
     const createCircles = ({ ratio }: { ratio: number }) => {
-        const shapes: Shapes = []
+        const shapes: Shape[] = []
 
         for (let i = 1; i < num; i += i / 2 + 1) {
             const circles = []
