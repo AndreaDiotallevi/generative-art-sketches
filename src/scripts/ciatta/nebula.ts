@@ -1,24 +1,29 @@
 import p5 from "p5"
-import { canvasWidth, canvasHeight } from "@utils/globals"
+// import { canvasWidth, canvasHeight } from "@utils/globals"
 
 type Circle = { x: number; y: number; d: number }
 type Shape = { color: p5.Color; count: number; circles: Circle[] }
 
 export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
     const { scale, hue } = options
-    const ratio = 2
+    const ratio1 = 2
+    const ratio2 = 1 / 500
     const num = 1000
     const randomSeed = 7302
     const noiseSeed = randomSeed * 1000
 
+    const aspectRatio = 1.4
+    const width = 2000
+    const height = width * aspectRatio
+
     p5.setup = () => {
-        p5.createCanvas(canvasWidth, canvasHeight)
+        p5.createCanvas(width, height)
         p5.colorMode("hsb", 360, 100, 100, 1)
         p5.noStroke()
         p5.noLoop()
     }
 
-    const createCircles = ({ ratio }: { ratio: number }) => {
+    const createCircles = () => {
         const shapes: Shape[] = []
 
         for (let i = 1; i < num; i += i / 2 + 1) {
@@ -35,9 +40,9 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
 
             let count = 0
             for (let j = 0; j < 2 * p5.PI; j += p5.PI / (p5.noise(i) * 36)) {
-                const x = p5.cos(j) * p5.noise(i) * i * ratio
-                const y = p5.sin(j) * p5.noise(j) * i * ratio
-                const d = ((p5.randomGaussian(0) * canvasWidth) / scale) * ratio
+                const x = p5.cos(j) * p5.noise(i) * i * width * ratio1 * ratio2
+                const y = p5.sin(j) * p5.noise(j) * i * width * ratio1 * ratio2
+                const d = ((p5.randomGaussian(0) * width) / scale) * ratio1
                 circles.push({ x, y, d })
                 count++
             }
@@ -59,9 +64,9 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
 
         p5.background(backgroundColor)
 
-        const shapes = createCircles({ ratio })
+        const shapes = createCircles()
 
-        p5.translate(canvasWidth / 2, canvasHeight / 2)
+        p5.translate(width / 2, height / 2)
         backgroundColor = p5.color(hue, 100, 100, 1)
         p5.background(backgroundColor)
 
@@ -76,9 +81,9 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
     }
 
     // const paper = () => {
-    //     const step = canvasWidth / 400
-    //     for (let x = 0; x < canvasWidth; x += step) {
-    //         for (let y = 0; y < canvasHeight; y += step) {
+    //     const step = width / 400
+    //     for (let x = 0; x < width; x += step) {
+    //         for (let y = 0; y < height; y += step) {
     //             p5.push()
     //             p5.fill(p5.random(255), 100, 100, 0.015)
     //             p5.rect(x, y, step, step)
@@ -90,24 +95,24 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
     p5.draw = () => {
         p5.randomSeed(randomSeed)
         p5.noiseSeed(noiseSeed)
-        // drawSketch({ ratio: 1.5 }) // big 9
-        // drawSketch({ ratio: 2 }) // big 9 hue=15
+        // drawSketch({ ratio1: 1.5 }) // big 9
+        // drawSketch({ ratio1: 2 }) // big 9 hue=15
         drawSketch() // medium 6 hue=27.5
-        // drawSketch({ ratio: 2}) // small 13 hue=40
+        // drawSketch({ ratio1: 2}) // small 13 hue=40
         // paper()
     }
 
     p5.mouseClicked = () => {
         p5.save(
-            canvasWidth +
+            width +
                 "-nebula-rSeed=" +
                 randomSeed +
                 "-nSeed=" +
                 noiseSeed +
                 "-scale=" +
                 scale +
-                "-ratio=" +
-                ratio +
+                "-ratio1=" +
+                ratio1 +
                 ".png"
         )
     }
