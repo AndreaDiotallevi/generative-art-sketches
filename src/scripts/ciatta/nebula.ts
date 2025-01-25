@@ -6,11 +6,10 @@ type Shapes = { color: p5.Color; count: number; circles: Circle[] }[]
 
 export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
     const { scale, hue } = options
+    const ratio = 2
     const num = 1000
     const randomSeed = 7302
     const noiseSeed = randomSeed * 1000
-    const shapes: Shapes = []
-    const ratio = 2
 
     p5.setup = () => {
         p5.createCanvas(canvasWidth, canvasHeight)
@@ -20,6 +19,8 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
     }
 
     const createCircles = ({ ratio }: { ratio: number }) => {
+        const shapes: Shapes = []
+
         for (let i = 1; i < num; i += i / 2 + 1) {
             const circles = []
             const color = p5.color(
@@ -42,7 +43,10 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
             }
             shapes.push({ circles, color, count })
         }
+
         shapes[13].color = p5.color(35, 100, 100, 0.5)
+
+        return shapes
     }
 
     const drawSketch = () => {
@@ -55,7 +59,7 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
 
         p5.background(backgroundColor)
 
-        createCircles({ ratio })
+        const shapes = createCircles({ ratio })
 
         p5.translate(canvasWidth / 2, canvasHeight / 2)
         backgroundColor = p5.color(hue, 100, 100, 1)
@@ -108,11 +112,11 @@ export const sketch = (p5: p5, options: { scale: number; hue: number }) => {
         )
     }
 
-    p5.windowResized = () => {
-        const newElement = document.querySelector("#sketch") as HTMLElement
-        p5.resizeCanvas(newElement.clientWidth, newElement.clientHeight)
-        p5.draw()
-    }
+    // p5.windowResized = () => {
+    //     const newElement = document.querySelector("#sketch") as HTMLElement
+    //     p5.resizeCanvas(newElement.clientWidth, newElement.clientHeight)
+    //     p5.draw()
+    // }
 }
 
 // http://localhost:4321/ciatta?scale=30&hue=35
