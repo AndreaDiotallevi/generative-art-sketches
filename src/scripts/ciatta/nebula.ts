@@ -96,10 +96,7 @@ export const sketch = (
     p5.draw = () => {
         p5.randomSeed(randomSeed)
         p5.noiseSeed(noiseSeed)
-        // drawSketch({ ratio1: 1.5 }) // big 9
-        // drawSketch({ ratio1: 2 }) // big 9 hue=15
-        drawSketch() // medium 6 hue=27.5
-        // drawSketch({ ratio1: 2}) // small 13 hue=40
+        drawSketch()
         // paper()
     }
 
@@ -129,6 +126,6 @@ export const sketch = (
 // http://localhost:4321/ciatta?scale=20&hue=25
 // http://localhost:4321/ciatta?scale=10&hue=330
 
-// http://localhost:4321/ciatta?scale=40&hue=35
-// http://localhost:4321/ciatta?scale=20&hue=25
-// http://localhost:4321/ciatta?scale=10&hue=330
+// http://localhost:4321/ciatta?scale=40&hue=35&width=2000
+// http://localhost:4321/ciatta?scale=20&hue=25&width=2000
+// http://localhost:4321/ciatta?scale=10&hue=330&width=2000
