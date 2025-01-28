@@ -98,21 +98,28 @@ export const sketch = (
         p5.noiseSeed(noiseSeed)
         drawSketch()
         // paper()
+        // saveImage()
+    }
+
+    const saveImage = () => {
+        p5.save(
+            "nebula" +
+                "-width" +
+                width +
+                "-rSeed" +
+                randomSeed +
+                "-nSeed" +
+                noiseSeed +
+                "-scale" +
+                scale +
+                "-hue" +
+                hue +
+                ".png"
+        )
     }
 
     p5.mouseClicked = () => {
-        p5.save(
-            width +
-                "-nebula-rSeed=" +
-                randomSeed +
-                "-nSeed=" +
-                noiseSeed +
-                "-scale=" +
-                scale +
-                "-ratio1=" +
-                ratio1 +
-                ".png"
-        )
+        saveImage()
     }
 
     // p5.windowResized = () => {
@@ -122,10 +129,9 @@ export const sketch = (
     // }
 }
 
-// http://localhost:4321/ciatta?scale=30&hue=35
-// http://localhost:4321/ciatta?scale=20&hue=25
-// http://localhost:4321/ciatta?scale=10&hue=330
-
-// http://localhost:4321/ciatta?scale=40&hue=35&width=2000
+// http://localhost:4321/ciatta?scale=30&hue=35&width=2000
 // http://localhost:4321/ciatta?scale=20&hue=25&width=2000
-// http://localhost:4321/ciatta?scale=10&hue=330&width=2000
+// http://localhost:4321/ciatta?scale=10&hue=15&width=2000
+
+// 5906 x 8268 50x70 (500x700) 300 DPI
+// 2481 x 3508 A4 (210x297)
