@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro"
+---
+
+<BaseLayout />
+
+<script>
+    import p5 from "p5"
+    import { sketch } from "@scripts/ciatta/nebulaVideo"
+    import { sketchElement } from "@utils/globals"
+
+    const params = new URLSearchParams(window.location.search)
+    // Back-compat: single values
+    const scale = params.get("scale")
+    const hue = params.get("hue")
+    // Animated parameters
+    const scaleStart = params.get("scaleStart") || scale || "30"
+    const scaleEnd = params.get("scaleEnd") || scale || "10"
+    const hueStart = params.get("hueStart") || hue || "35"
+    const hueEnd = params.get("hueEnd") || hue || "15"
+    const frames = params.get("frames") || "180"
+    const width = params.get("width")
+
+    new p5(
+        p =>
+            sketch(p, {
+                // Provide both styles; sketch will prioritize start/end
+                scale: scale ? Number.parseFloat(scale) : undefined,
+                hue: hue ? Number.parseFloat(hue) : undefined,
+                scaleStart: Number.parseFloat(scaleStart),
+                scaleEnd: Number.parseFloat(scaleEnd),
+                hueStart: Number.parseFloat(hueStart),
+                hueEnd: Number.parseFloat(hueEnd),
+                frames: Number.parseInt(frames),
+                width: width ? Number.parseFloat(width) : undefined,
+            }),
+        sketchElement
+    )
+</script>
