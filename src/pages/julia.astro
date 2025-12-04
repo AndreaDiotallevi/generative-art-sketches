@@ -1,0 +1,36 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro"
+---
+
+<BaseLayout />
+
+<script>
+    import p5 from "p5"
+    import { sketch } from "@scripts/ciatta/julia"
+    import { sketchElement } from "@utils/globals"
+
+    const params = new URLSearchParams(window.location.search)
+    const width = params.get("width")
+    const aspectRatio = params.get("aspectRatio") || "1"
+    const iterations = params.get("iterations") || "400"
+    const cx = params.get("cx") || "0.285"
+    const cy = params.get("cy") || "0.01"
+    const zoom = params.get("zoom") || "1"
+    const hue = params.get("hue") || "200"
+
+    new p5(
+        p =>
+            sketch(p, {
+                width: width ? Number.parseFloat(width) : undefined,
+                aspectRatio: Number.parseFloat(aspectRatio),
+                iterations: Number.parseInt(iterations),
+                cx: Number.parseFloat(cx),
+                cy: Number.parseFloat(cy),
+                zoom: Number.parseFloat(zoom),
+                hue: Number.parseFloat(hue),
+            }),
+        sketchElement
+    )
+</script>
+
+

@@ -1,0 +1,31 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro"
+---
+
+<BaseLayout />
+
+<script>
+    import p5 from "p5"
+    import { sketch } from "@scripts/ciatta/aurora"
+    import { sketchElement } from "@utils/globals"
+
+    const params = new URLSearchParams(window.location.search)
+    const scale = params.get("scale") || "12"
+    const hue = params.get("hue") || "210"
+    const width = params.get("width")
+    const lines = params.get("lines")
+
+    new p5(
+        p =>
+            sketch(p, {
+                scale: Number.parseFloat(scale),
+                hue: Number.parseFloat(hue),
+                width: width ? Number.parseFloat(width) : undefined,
+                lines: lines ? Number.parseFloat(lines) : undefined,
+            }),
+        sketchElement
+    )
+    
+</script>
+
+
