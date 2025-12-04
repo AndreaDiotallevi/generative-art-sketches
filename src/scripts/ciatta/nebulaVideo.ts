@@ -113,6 +113,13 @@ export const sketch = (
         }
     }
 
+    p5.mouseClicked = () => {
+        frameIndex = 0
+        if (!p5.isLooping()) {
+            p5.loop()
+        }
+    }
+
 
     // p5.windowResized = () => {
     //     const newElement = document.querySelector("#sketch") as HTMLElement
