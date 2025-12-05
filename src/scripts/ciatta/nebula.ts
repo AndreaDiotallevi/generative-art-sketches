@@ -122,6 +122,11 @@ export const sketch = (
         saveImage()
     }
 
+    // Enable tap to save on mobile
+    p5.touchStarted = () => {
+        saveImage()
+    }
+
     // p5.windowResized = () => {
     //     const newElement = document.querySelector("#sketch") as HTMLElement
     //     p5.resizeCanvas(newElement.clientWidth, newElement.clientHeight)
