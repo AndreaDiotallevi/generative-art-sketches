@@ -120,6 +120,14 @@ export const sketch = (
         }
     }
 
+    // Enable tap to restart on mobile
+    p5.touchStarted = () => {
+        frameIndex = 0
+        if (!p5.isLooping()) {
+            p5.loop()
+        }
+    }
+
 
     // p5.windowResized = () => {
     //     const newElement = document.querySelector("#sketch") as HTMLElement
